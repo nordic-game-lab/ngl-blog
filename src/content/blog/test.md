@@ -1,5 +1,4 @@
 ---
-layout: /src/layouts/post.astro
 title: test
 description: test
 tags:
