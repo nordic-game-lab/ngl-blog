@@ -15,5 +15,12 @@ collections: # A list of collections the CMS should be able to edit
       - { label: 'Description', name: 'description', widget: 'text' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
       - { label: 'Tags', name: 'tags', widget: 'list' }
-      - { label: 'Author', name: 'author', widget: 'string' }
       - { label: 'Publish Date', name: 'pubDate', widget: 'datetime' }
+      - label: "Hero Image"
+        name: "heroImage"
+        widget: "image"
+        choose_url: true
+        default: "/uploads/chocolate-dogecoin.jpg"
+        media_library:
+          config:
+            multiple: true
