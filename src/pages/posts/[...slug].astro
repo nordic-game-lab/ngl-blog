@@ -1,0 +1,69 @@
+---
+import { contentfulClient } from "../../lib/contentful";
+import type { BlogPost } from "../../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+
+export async function getStaticPaths() {
+  const entries = await contentfulClient.getEntries<BlogPost>({
+    content_type: "blogPost",
+  });
+  const pages = entries.items.map((item) => ({
+    params: { slug: item.fields.slug },
+    props: {
+      title: item.fields.title,
+      content: documentToHtmlString(item.fields.content),
+      date: new Date(item.fields.date).toLocaleDateString(),
+	  description: item.fields.description,
+    },
+  }));
+  return pages;
+}
+
+const { content, title, date, description } = Astro.props;
+---
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			.prose {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-dark));
+			}
+			.title {
+				margin-bottom: 1em;
+				padding: 1em 0;
+				text-align: center;
+				line-height: 1;
+			}
+			.title h1 {
+				margin: 0 0 0.5em 0;
+			}
+			.date {
+				margin-bottom: 0.5em;
+				color: rgb(var(--gray));
+			}
+			.last-updated-on {
+				font-style: italic;
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<h1>{title}</h1>
+    		<time>{date}</time>
+    		<article set:html={content} />
+		</main>
+		<Footer />
+	</body>
+</html>
+
