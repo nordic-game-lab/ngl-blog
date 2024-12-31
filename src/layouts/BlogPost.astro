@@ -81,8 +81,11 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				</div>
 			</article>
 		</main>
-		<script defer src="https://comments.nordicgamelab.org/comentario.js"></script>
-<comentario-comments></comentario-comments>
+		<script data-isso="https://comments.nordicgamelab.org/"
+        src="https://comments.nordicgamelab.org/js/embed.min.js"></script>
+                <section id="isso-thread">
+    <noscript>Javascript needs to be activated to view comments.</noscript>
+</section>
 		<Footer />
 	</body>
 </html>
